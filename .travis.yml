@@ -17,7 +17,7 @@ before_install:
 install:
   - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy==1.10.4 scipy==0.17.0 scikit-learn==0.17.1 beautifulsoup4==4.4.1 lxml==3.5.0
   # Coverage packages are on my binstar channel
-  - conda install --yes -c dan_blanchard python-coveralls nose-cov
-  - python setup.pyinstall:
+  # - conda install --yes -c dan_blanchard python-coveralls nose-cov
+  - python setup.py
 #####
 script: nosetests
