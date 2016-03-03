@@ -2,6 +2,8 @@ language: python
 python:
   - "2.6"
   - "2.7"
+before_install:
+  - sudo apt-get install libatlas-base-dev gfortran
 install:
   - chmod 755 ./loop_requirements.sh
   - ./loop_requirements.sh
