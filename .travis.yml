@@ -23,5 +23,5 @@ install:
   # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy scipy scikit-learn beautifulsoup4 lxml
   - source activate test-environment
-  - python setup.py install
+  - $PYTHON setup.py install
 script: nosetests
