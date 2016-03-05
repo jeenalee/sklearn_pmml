@@ -22,7 +22,7 @@ install:
   - conda info -a
 
   # Replace dep1 dep2 ... with your dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy=1.10.4 scipy=0.17.0 scikit-learn=0.17.1 beautifulsoup4=4.4.1 lxml=3.5.0
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy=1.10.4 scipy=0.17.0 scikit-learn=0.17.1 beautifulsoup4=4.4.1 lxml=3.5.0 nose
   - source activate test-environment
 
 script: nosetests
