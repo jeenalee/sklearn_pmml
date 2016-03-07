@@ -1,31 +1,33 @@
 from sklearn.linear_model import LinearRegression
+from bs4 import BeautifulSoup
 
 def build_model(pmml):
-    model_type = "linear_model"
+    """
+    Builds model based on input PMML file.
+    
+    Finds which sklearn class to call based on model name specified in
+    the PMML file. Returns a sklearn classifier with the parameters
+    populated, and can be used for prediction.
+    """
+    with open(pmml, "r") as f:
+        soup = BeautifulSoup(f, "xml")
+
+    if "modelName" in soup.RegressionModel.attrs:
+        model_type = soup.RegressionModel['modelName']
+    else:
+        raise IOError("The input PMML file does not have a modelName.")
+        # TODO: Confirm R always outputs a modelName"
+        
     model_class = model_class_from_model_type(model_type)
     model = model_class.from_pmml(pmml)
     return model
 
 
 def model_class_from_model_type(model_type):
-    if model_type == "linear_model":
+    if model_type == "Linear_Regression_Model":
         return LinearRegression
-
-
-
-
     
-"""
-m = new_pmml_to_sklearn.build_model('asdf')
-<class 'sklearn.linear_model.base.LinearRegression'>
- 
-but not:
-n = LinearRegression.from_pmml('asdf')
-n = LinearRegression.from_pmml('asdf')
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-6-bf2d82eb5746> in <module>()
-----> 1 n = LinearRegression.from_pmml('asdf')
-
-NameError: name 'LinearRegression' is not defined
-"""
+    # if model_type == "Random_Forest_Model":
+    #     return RandomForest
+    # if model_type == "SVM_Model":
+    #     return SVM
