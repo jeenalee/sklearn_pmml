@@ -21,7 +21,7 @@ def from_pmml(self, pmml):
         intercept = 0
         if "intercept" in lm_soup.RegressionTable.attrs:
             intercept = lm_soup.RegressionTable['intercept']
-        model.intercept_ = intercept
+        model.intercept_ = float(intercept)
 
         # Pulls out coefficients from the PMML file, and assigns them
         # to the model.
@@ -31,7 +31,8 @@ def from_pmml(self, pmml):
             coefs = []
             numeric_predictors = lm_soup.find_all('NumericPredictor')
             for i in numeric_predictors:
-                coefs.append(i['coefficient'])
+                i_coef = float(i['coefficient'])
+                coefs.append(i_coef)
             model.coef_ = numpy.array(coefs)
             
     return model
