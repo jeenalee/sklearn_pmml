@@ -2,8 +2,7 @@ import unittest
 import numpy
 from bs4 import BeautifulSoup
 import sys
-#sys.path.append('./')
-sys.path.append('/Users/Jeena/src/sklearn_pmml')
+#sys.path.append('/Users/Jeena/src/sklearn_pmml')
 import sklearn_pmml
 import sklearn_pmml.extensions
 from sklearn.linear_model import LinearRegression
@@ -11,11 +10,11 @@ from sklearn.linear_model import LinearRegression
 class LinearRegressionTests(unittest.TestCase):
     # Setting up for tests. Assign test files.
     def setUp(self):
-        self.test_f = './tests/test_pmml_files/original.pmml'
-        self.test_f_noModelName = './tests/test_pmml_files/noModelMame.pmml'
-        self.test_f_noIntercept = './tests/test_pmml_files/noIntercept.pmml'
-        self.test_f_noCoefficient = './tests/test_pmml_files/noCoefficient.pmml'
-        self.test_f_noRegressionTable = './tests/test_pmml_files/noRegressionTable.pmml'
+        self.test_f = './tests/test_pmml_files/linear_regression/original.pmml'
+        self.test_f_noModelName = './tests/test_pmml_files/linear_regression/noModelMame.pmml'
+        self.test_f_noIntercept = './tests/test_pmml_files/linear_regression/noIntercept.pmml'
+        self.test_f_noCoefficient = './tests/test_pmml_files/linear_regression/noCoefficient.pmml'
+        self.test_f_noRegressionTable = './tests/test_pmml_files/linear_regression/noRegressionTable.pmml'
 
     # Tear down after tests.
     def tearDown(self):

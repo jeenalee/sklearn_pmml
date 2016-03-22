@@ -1,0 +1,87 @@
+<PMML version="4.2" xmlns="http://www.dmg.org/PMML-4_2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.dmg.org/PMML-4_2 http://www.dmg.org/v4-2/pmml-4-2.xsd">
+ <Header copyright="Copyright (c) 2016 Jeena" description="Random Forest Tree Model">
+  <Extension name="user" value="Jeena" extender="Rattle/PMML"/>
+  <Application name="Rattle/PMML" version="1.4"/>
+  <Timestamp>2016-03-16 15:13:53</Timestamp>
+ </Header>
+ <DataDictionary numberOfFields="3">
+  <DataField name="Species" optype="categorical" dataType="string">
+   <Value value="setosa"/>
+   <Value value="versicolor"/>
+   <Value value="virginica"/>
+  </DataField>
+  <DataField name="Sepal.Length" optype="continuous" dataType="double"/>
+  <DataField name="Sepal.Width" optype="continuous" dataType="double"/>
+ </DataDictionary>
+ <MiningModel modelName="randomForest_Model" algorithmName="randomForest" functionName="classification">
+  <MiningSchema>
+   <MiningField name="Species" usageType="predicted"/>
+   <MiningField name="Sepal.Length" usageType="active"/>
+   <MiningField name="Sepal.Width" usageType="active"/>
+  </MiningSchema>
+  <Output>
+   <OutputField name="Predicted_Species" feature="predictedValue"/>
+   <OutputField name="Probability_setosa" optype="continuous" dataType="double" feature="probability" value="setosa"/>
+   <OutputField name="Probability_versicolor" optype="continuous" dataType="double" feature="probability" value="versicolor"/>
+   <OutputField name="Probability_virginica" optype="continuous" dataType="double" feature="probability" value="virginica"/>
+  </Output>
+  <Segmentation multipleModelMethod="majorityVote">
+   <Segment id="1">
+    <True/>
+    <TreeModel modelName="randomForest_Model" functionName="classification" algorithmName="randomForest" splitCharacteristic="binarySplit">
+     <MiningSchema>
+      <MiningField name="Species" usageType="predicted"/>
+      <MiningField name="Sepal.Length" usageType="active"/>
+      <MiningField name="Sepal.Width" usageType="active"/>
+     </MiningSchema>
+     <Node id="1">
+      <True/>
+      <Node id="2">
+       <SimplePredicate field="Sepal.Width" operator="lessOrEqual" value="3.15000000000000036"/>
+       <Node id="4" score="setosa">
+        <SimplePredicate field="Sepal.Length" operator="lessOrEqual" value="5.34999999999999964"/>
+       </Node>
+       <Node id="5">
+        <SimplePredicate field="Sepal.Length" operator="greaterThan" value="5.34999999999999964"/>
+        <Node id="6" score="versicolor">
+         <SimplePredicate field="Sepal.Length" operator="lessOrEqual" value="6.65000000000000036"/>
+        </Node>
+        <Node id="7" score="virginica">
+         <SimplePredicate field="Sepal.Length" operator="greaterThan" value="6.65000000000000036"/>
+        </Node>
+       </Node>
+      </Node>
+      <Node id="3" score="virginica">
+       <SimplePredicate field="Sepal.Width" operator="greaterThan" value="3.15000000000000036"/>
+      </Node>
+     </Node>
+    </TreeModel>
+   </Segment>
+   <Segment id="2">
+    <True/>
+    <TreeModel modelName="randomForest_Model" functionName="classification" algorithmName="randomForest" splitCharacteristic="binarySplit">
+     <MiningSchema>
+      <MiningField name="Species" usageType="predicted"/>
+      <MiningField name="Sepal.Length" usageType="active"/>
+      <MiningField name="Sepal.Width" usageType="active"/>
+     </MiningSchema>
+     <Node id="1">
+      <True/>
+      <Node id="2">
+       <SimplePredicate field="Sepal.Length" operator="lessOrEqual" value="6.25"/>
+       <Node id="4" score="versicolor">
+        <SimplePredicate field="Sepal.Width" operator="lessOrEqual" value="2.85000000000000009"/>
+       </Node>
+       <Node id="5" score="setosa">
+        <SimplePredicate field="Sepal.Width" operator="greaterThan" value="2.85000000000000009"/>
+       </Node>
+      </Node>
+      <Node id="3" score="virginica">
+       <SimplePredicate field="Sepal.Length" operator="greaterThan" value="6.25"/>
+      </Node>
+     </Node>
+    </TreeModel>
+   </Segment>
+  </Segmentation>
+ </MiningModel>
+</PMML>
