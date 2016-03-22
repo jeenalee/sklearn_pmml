@@ -1,4 +1,5 @@
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestClassifier
 from bs4 import BeautifulSoup
 
 def build_model(pmml):
@@ -12,8 +13,14 @@ def build_model(pmml):
     with open(pmml, "r") as f:
         soup = BeautifulSoup(f, "xml")
 
-    if "modelName" in soup.RegressionModel.attrs:
-        model_type = soup.RegressionModel['modelName']
+    if soup.RegressionModel:
+        if "modelName" in soup.RegressionModel.attrs:
+            model_type = soup.RegressionModel['modelName']
+
+    elif soup.MiningModel:
+        if "modelName" in soup.MiningModel.attrs:
+            model_type = soup.MiningModel['modelName']
+        
     else:
         raise IOError("The input PMML file does not have a modelName.")
         # TODO: Confirm R always outputs a modelName"
@@ -26,8 +33,11 @@ def build_model(pmml):
 def model_class_from_model_type(model_type):
     if model_type == "Linear_Regression_Model":
         return LinearRegression
-    
-    # if model_type == "Random_Forest_Model":
-    #     return RandomForest
+
+    if model_type == "randomForest_Model":
+        return RandomForestClassifier
+
     # if model_type == "SVM_Model":
     #     return SVM
+
+# TODO: randomforest does not have RegressionModel. It has MiningModel.
